@@ -11,7 +11,7 @@ original words** to quote, using a fraction of the tokens.
 An **MCP server** for Claude Code, Claude Desktop, and any Model Context Protocol
 client — with a standalone CLI too.
 
-[![License: Apache 2.0](https://img.shields.io/badge/license-Apache%202.0-blue.svg)](LICENSE)
+[![License: Apache 2.0](https://img.shields.io/badge/license-Apache%202.0-blue.svg)](https://github.com/AlexanderBoger/SaveContext/blob/master/LICENSE)
 [![Python 3.10+](https://img.shields.io/badge/python-3.10%2B-blue.svg)](https://www.python.org)
 [![MCP server](https://img.shields.io/badge/MCP-server-6E56CF.svg)](https://modelcontextprotocol.io)
 [![tests](https://img.shields.io/badge/tests-80%20passing-brightgreen.svg)](#reference)
@@ -79,9 +79,9 @@ can't tell you when they're guessing. SaveContext does the two things they can't
 </table>
 
 <picture>
-  <source media="(prefers-color-scheme: dark)" srcset="assets/benchmark-dark.svg">
-  <source media="(prefers-color-scheme: light)" srcset="assets/benchmark-light.svg">
-  <img alt="Bar chart: context tokens to answer six questions. Pasting the whole document scales with size (15,135 to 150,135 tokens) while SaveContext stays flat near 7,300 — 20.5x less at 150k." src="assets/benchmark-light.svg" width="720">
+  <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/AlexanderBoger/SaveContext/master/assets/benchmark-dark.svg">
+  <source media="(prefers-color-scheme: light)" srcset="https://raw.githubusercontent.com/AlexanderBoger/SaveContext/master/assets/benchmark-light.svg">
+  <img alt="Bar chart: context tokens to answer six questions. Pasting the whole document scales with size (15,135 to 150,135 tokens) while SaveContext stays flat near 7,300 — 20.5x less at 150k." src="https://raw.githubusercontent.com/AlexanderBoger/SaveContext/master/assets/benchmark-light.svg" width="720">
 </picture>
 
 </div>
@@ -94,7 +94,7 @@ Crossover is ≈ 5k tokens — below that, just paste; above it, the gap widens 
 > Honest note: live runs are single samples — treat small differences as noise. The
 > durable findings are the flat-vs-scaling cost curve, byte-exact retrieval, and zero
 > hallucination on absent facts. Dense technical prose is the current retrieval frontier.
-> Reproduce it yourself: [`examples/benchmark_suite/`](examples/benchmark_suite).
+> Reproduce it yourself: [`examples/benchmark_suite/`](https://github.com/AlexanderBoger/SaveContext/blob/master/examples/benchmark_suite).
 
 ---
 
@@ -145,7 +145,7 @@ cite) · `full` (raw block text — the only path that returns source prose).
 6. Claude answers using only the relevant, verbatim, cited context.
 ```
 
-A runnable version is in [`examples/demo.py`](examples/demo.py) (`python examples/demo.py`).
+A runnable version is in [`examples/demo.py`](https://github.com/AlexanderBoger/SaveContext/blob/master/examples/demo.py) (`python examples/demo.py`).
 
 </details>
 
@@ -272,6 +272,6 @@ confidence logic, and the CLI flow.
 
 ## License
 
-[Apache License 2.0](LICENSE) — see also [NOTICE](NOTICE). If you redistribute
+[Apache License 2.0](https://github.com/AlexanderBoger/SaveContext/blob/master/LICENSE) — see also [NOTICE](https://github.com/AlexanderBoger/SaveContext/blob/master/NOTICE). If you redistribute
 SaveContext or build on it, retain the copyright and the `NOTICE` file, per the license
 (that's how attribution is required).
