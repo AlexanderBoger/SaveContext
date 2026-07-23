@@ -1,0 +1,232 @@
+<title>ContextVault Benchmark — flat cost, zero quality loss</title>
+<style>
+  :root{
+    --ground:#f5f7f6; --panel:#ffffff; --ink:#0e1c18; --muted:#5c6b65;
+    --hair:#dce3e0; --hair-2:#eceeed; --brand:#0f7a6b;
+    --baseline:#cc4b63; --vault:#13988a; --good:#2f9e44;
+    --mono:ui-monospace,"SF Mono",SFMono-Regular,Menlo,Consolas,"Liberation Mono",monospace;
+    --sans:system-ui,-apple-system,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--ground);color:var(--ink);font-family:var(--sans);
+    line-height:1.62;-webkit-font-smoothing:antialiased;font-variant-numeric:tabular-nums}
+  .wrap{max-width:880px;margin:0 auto;padding:clamp(28px,5vw,72px) clamp(20px,5vw,40px)}
+  .mono{font-family:var(--mono)}
+  .eyebrow{font-family:var(--mono);font-size:.82rem;letter-spacing:.04em;color:var(--brand);
+    display:flex;align-items:center;gap:.5ch;margin:0 0 18px}
+  .eyebrow .dot{width:7px;height:7px;border-radius:50%;background:var(--vault);
+    box-shadow:0 0 0 4px rgba(19,152,138,.16)}
+  h1{font-family:var(--mono);font-weight:700;font-size:clamp(2rem,5.4vw,3.3rem);
+    line-height:1.04;letter-spacing:-.02em;margin:0 0 16px;text-wrap:balance}
+  h1 .hl{color:var(--vault)}
+  .lede{font-size:clamp(1.05rem,2.2vw,1.22rem);color:var(--muted);max-width:60ch;margin:0 0 36px}
+  .lede strong{color:var(--ink);font-weight:600}
+
+  .kpis{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin:0 0 48px}
+  .kpi{background:var(--panel);border:1px solid var(--hair);border-radius:12px;padding:18px 18px 16px}
+  .kpi .n{font-family:var(--mono);font-weight:700;font-size:clamp(1.7rem,4.4vw,2.5rem);
+    line-height:1;letter-spacing:-.02em}
+  .kpi .n.v{color:var(--vault)} .kpi .n.b{color:var(--baseline)} .kpi .n.g{color:var(--good)}
+  .kpi .l{font-size:.83rem;color:var(--muted);margin-top:8px}
+
+  section{margin:0 0 46px}
+  h2{font-family:var(--mono);font-size:1.18rem;letter-spacing:-.01em;margin:0 0 4px}
+  .sub{color:var(--muted);font-size:.95rem;margin:0 0 18px}
+
+  .card{background:var(--panel);border:1px solid var(--hair);border-radius:14px;
+    padding:20px clamp(14px,3vw,24px)}
+  .legend{display:flex;gap:20px;flex-wrap:wrap;font-family:var(--mono);font-size:.82rem;margin:2px 0 10px}
+  .legend span{display:inline-flex;align-items:center;gap:7px;color:var(--muted)}
+  .legend i{width:18px;height:3px;border-radius:2px;display:inline-block}
+  .chart{width:100%;height:auto;display:block;overflow:visible}
+  .chart text{font-family:var(--mono);fill:var(--muted)}
+  .axis line{stroke:var(--hair)} .grid line{stroke:var(--hair-2)}
+  .endlbl{font-weight:700}
+
+  .quality{display:flex;align-items:center;gap:18px;flex-wrap:wrap}
+  .qbig{font-family:var(--mono);font-weight:700;font-size:2.6rem;color:var(--good);line-height:1}
+  .qrow{display:flex;gap:7px;flex-wrap:wrap;margin-top:4px}
+  .chip{font-family:var(--mono);font-size:.74rem;padding:4px 9px;border-radius:999px;
+    border:1px solid color-mix(in srgb,var(--good) 35%,var(--hair));
+    background:color-mix(in srgb,var(--good) 9%,white);color:#216b2e;white-space:nowrap}
+
+  .tablewrap{overflow-x:auto;border:1px solid var(--hair);border-radius:14px;background:var(--panel)}
+  table{border-collapse:collapse;width:100%;font-family:var(--mono);font-size:.86rem;min-width:640px}
+  th,td{padding:11px 14px;text-align:right;white-space:nowrap}
+  th:first-child,td:first-child{text-align:left}
+  thead th{font-size:.74rem;letter-spacing:.03em;color:var(--muted);font-weight:600;
+    border-bottom:1px solid var(--hair);background:#fbfcfc;position:sticky;top:0}
+  tbody tr+tr td{border-top:1px solid var(--hair-2)}
+  td.red{color:var(--baseline)} td.teal{color:var(--vault);font-weight:600}
+  tr.cross td{background:color-mix(in srgb,var(--brand) 6%,white)}
+  .cross-note{font-family:var(--mono);font-size:.72rem;color:var(--brand)}
+
+  .notes{display:grid;gap:14px}
+  .note{display:grid;grid-template-columns:auto 1fr;gap:12px;align-items:start;
+    font-size:.93rem;color:var(--muted)}
+  .note b{color:var(--ink);font-weight:600}
+  .note .k{font-family:var(--mono);font-size:.7rem;color:var(--brand);border:1px solid var(--hair);
+    border-radius:6px;padding:3px 7px;white-space:nowrap;margin-top:2px}
+  footer{border-top:1px solid var(--hair);padding-top:18px;color:var(--muted);font-size:.82rem;
+    font-family:var(--mono);display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px}
+  @media(max-width:560px){.kpis{grid-template-columns:1fr}}
+</style>
+
+<div class="wrap">
+  <p class="eyebrow"><span class="dot"></span>ctx:// &nbsp;ContextVault &nbsp;·&nbsp; Git LFS for LLM context</p>
+  <h1>Flat cost as documents grow.<br><span class="hl">Zero</span> quality lost.</h1>
+  <p class="lede">Answering the same six fact questions about one contract — pasting the
+  whole document into the model vs. routing it through ContextVault. Measured across
+  <strong>8 document sizes, 1.5k → 150k tokens</strong>, with <strong>16 real agents</strong>
+  grading answers against ground truth (distractors included).</p>
+
+  <div class="kpis">
+    <div class="kpi"><div class="n v">20.5×</div><div class="l">fewer input tokens at 150k tokens (and still climbing)</div></div>
+    <div class="kpi"><div class="n g">100%</div><div class="l">answer accuracy — every size, both methods, distractors rejected</div></div>
+    <div class="kpi"><div class="n b">$0.75 → $0.04</div><div class="l">Opus 4.8 cost per question at 150k: baseline vs ContextVault</div></div>
+  </div>
+
+  <section>
+    <h2>Tokens to answer</h2>
+    <p class="sub">Baseline scales with the document; ContextVault stays pinned near 7.3k. Log scale.</p>
+    <div class="card">
+      <div class="legend">
+        <span><i style="background:var(--baseline)"></i>Baseline — paste whole doc</span>
+        <span><i style="background:var(--vault)"></i>ContextVault — brief + targeted expand</span>
+      </div>
+      <svg id="tokChart" class="chart" viewBox="0 0 760 380" role="img"
+        aria-label="Tokens used to answer vs document size, log scale"></svg>
+    </div>
+  </section>
+
+  <section>
+    <h2>Cost per question</h2>
+    <p class="sub">Input-token price at published rates — Opus 4.8 ($5/1M) and Sonnet 4.6 ($3/1M).</p>
+    <div class="card">
+      <div class="legend">
+        <span><i style="background:var(--baseline)"></i>Baseline · Opus</span>
+        <span><i style="background:var(--baseline);opacity:.5"></i>Baseline · Sonnet</span>
+        <span><i style="background:var(--vault)"></i>ContextVault · Opus</span>
+        <span><i style="background:var(--vault);opacity:.5"></i>ContextVault · Sonnet</span>
+      </div>
+      <svg id="costChart" class="chart" viewBox="0 0 760 360" role="img"
+        aria-label="Cost per question vs document size"></svg>
+    </div>
+  </section>
+
+  <section>
+    <h2>Answer quality</h2>
+    <p class="sub">Six facts per document, each with nearby decoy values ($250k, $1M, 30/45 days, 3 yrs, 24 mo, NY/CA).</p>
+    <div class="card quality">
+      <div><div class="qbig">100%</div><div class="sub" style="margin:6px 0 0">both methods · 16/16 agent runs · 6/6 facts each</div></div>
+      <div>
+        <div class="qrow" id="qrow"></div>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <h2>The numbers</h2>
+    <p class="sub">Crossover ≈ 5k tokens (highlighted): below it, just paste the doc; above it ContextVault wins and the gap widens.</p>
+    <div class="tablewrap">
+      <table>
+        <thead><tr>
+          <th>Doc tokens</th><th>Baseline tok</th><th>CV tok</th><th>Reduction</th>
+          <th>Base $ Opus</th><th>CV $ Opus</th><th>Quality</th>
+        </tr></thead>
+        <tbody id="tbody"></tbody>
+      </table>
+    </div>
+  </section>
+
+  <section>
+    <h2>Method &amp; honest caveats</h2>
+    <div class="notes">
+      <div class="note"><span class="k">tokens</span><div><b>"Tokens used" = the context the model must read to answer.</b> Baseline = document + questions. ContextVault = compact ingest response + one task brief + one targeted expand per fact. Measured deterministically — isolated from agent reasoning overhead.</div></div>
+      <div class="note"><span class="k">price</span><div><b>Input tokens only.</b> Output is small and equal across methods, so it's excluded from the context-cost comparison.</div></div>
+      <div class="note"><span class="k">&lt;5k</span><div><b>Below ~5k tokens ContextVault costs more</b> (0.2× at 1.5k) — exactly what the tool's own audit warns. The win is large documents, asked about repeatedly.</div></div>
+      <div class="note"><span class="k">multi-turn</span><div><b>A real agent re-sends context each turn,</b> so both methods cost more in practice — but the ratio holds, and ContextVault's reused brief makes follow-up questions far cheaper still.</div></div>
+    </div>
+  </section>
+
+  <footer>
+    <span>ContextVault · rule-based, zero-LLM ingest · BM25 retrieval</span>
+    <span>8 sizes · 16 agent runs · 100% accuracy</span>
+  </footer>
+</div>
+
+<script>
+const DATA=[
+ {d:1541,b:1611,c:6455,r:0.2,bo:0.0080,co:0.0323,bs:0.0048,cs:0.0194},
+ {d:5069,b:5139,c:7296,r:0.7,bo:0.0257,co:0.0365,bs:0.0154,cs:0.0219},
+ {d:15065,b:15135,c:7297,r:2.1,bo:0.0757,co:0.0365,bs:0.0454,cs:0.0219},
+ {d:35057,b:35127,c:7291,r:4.8,bo:0.1756,co:0.0365,bs:0.1054,cs:0.0219},
+ {d:45053,b:45123,c:7295,r:6.2,bo:0.2256,co:0.0365,bs:0.1354,cs:0.0219},
+ {d:65045,b:65115,c:7295,r:8.9,bo:0.3256,co:0.0365,bs:0.1953,cs:0.0219},
+ {d:100044,b:100114,c:7308,r:13.7,bo:0.5006,co:0.0365,bs:0.3003,cs:0.0219},
+ {d:150065,b:150135,c:7324,r:20.5,bo:0.7507,co:0.0366,bs:0.4504,cs:0.0220},
+];
+const NS="http://www.w3.org/2000/svg";
+const el=(n,a={})=>{const e=document.createElementNS(NS,n);for(const k in a)e.setAttribute(k,a[k]);return e;};
+const kfmt=v=>v>=1000?(v/1000).toFixed(v>=10000?0:1)+"k":""+v;
+
+function lineChart(svg,{xmax,ylog,yticks,yfmt,series,endlabel}){
+  const W=760,H=+svg.getAttribute("viewBox").split(" ")[3];
+  const m={l:62,r:54,t:18,b:46}, iw=W-m.l-m.r, ih=H-m.t-m.b;
+  const X=v=>m.l+(v/xmax)*iw;
+  const ylo=ylog?Math.log10(yticks[0]):yticks[0], yhi=ylog?Math.log10(yticks.at(-1)):yticks.at(-1);
+  const Y=v=>{const t=((ylog?Math.log10(v):v)-ylo)/(yhi-ylo);return m.t+ih-t*ih;};
+  // grid + y labels
+  const g=el("g",{class:"grid"});svg.appendChild(g);
+  yticks.forEach(t=>{const y=Y(t);g.appendChild(el("line",{x1:m.l,y1:y,x2:W-m.r,y2:y}));
+    const tx=el("text",{x:m.l-10,y:y+4,"text-anchor":"end","font-size":"11"});tx.textContent=yfmt(t);svg.appendChild(tx);});
+  // x ticks at each datapoint
+  DATA.forEach(p=>{const x=X(p.d);const tx=el("text",{x,y:H-m.b+20,"text-anchor":"middle","font-size":"10.5"});
+    tx.textContent=kfmt(p.d);svg.appendChild(tx);});
+  const xa=el("text",{x:m.l+iw/2,y:H-6,"text-anchor":"middle","font-size":"11"});xa.textContent="document size (tokens)";svg.appendChild(xa);
+  // axis baseline
+  const ax=el("g",{class:"axis"});ax.appendChild(el("line",{x1:m.l,y1:m.t,x2:m.l,y2:m.t+ih}));svg.appendChild(ax);
+  // series
+  series.forEach(s=>{
+    let dpath="";s.pts.forEach((p,i)=>{dpath+=(i?"L":"M")+X(p[0]).toFixed(1)+" "+Y(p[1]).toFixed(1)+" ";});
+    svg.appendChild(el("path",{d:dpath,fill:"none",stroke:s.color,"stroke-width":s.w||2.6,
+      "stroke-dasharray":s.dash||"","stroke-linejoin":"round","stroke-linecap":"round","opacity":s.op||1}));
+    s.pts.forEach(p=>svg.appendChild(el("circle",{cx:X(p[0]),cy:Y(p[1]),r:s.r||3.6,fill:s.color,opacity:s.op||1})));
+    if(s.end){const last=s.pts.at(-1);const t=el("text",{x:X(last[0]),y:Y(last[1])-12,"text-anchor":"end",
+      "font-size":"12",class:"endlbl",fill:s.color});t.textContent=s.end;svg.appendChild(t);}
+  });
+  if(endlabel)series.forEach(()=>{});
+  // reduction labels on CV points
+  if(ylog)DATA.forEach((p,i)=>{if(i<2)return;const t=el("text",{x:X(p.d),y:Y(p.c)+20,"text-anchor":"middle",
+    "font-size":"10.5",fill:"#13988a","font-weight":"700"});t.textContent=p.r+"×";svg.appendChild(t);});
+}
+
+lineChart(document.getElementById("tokChart"),{
+  xmax:155000,ylog:true,yticks:[1000,10000,100000,200000],yfmt:v=>kfmt(v),
+  series:[
+   {color:"#cc4b63",pts:DATA.map(p=>[p.d,p.b]),end:"150k"},
+   {color:"#13988a",pts:DATA.map(p=>[p.d,p.c]),end:"7.3k"},
+  ]});
+
+lineChart(document.getElementById("costChart"),{
+  xmax:155000,ylog:false,yticks:[0,0.2,0.4,0.6,0.8],yfmt:v=>"$"+v.toFixed(2),
+  series:[
+   {color:"#cc4b63",pts:DATA.map(p=>[p.d,p.bo]),end:"$0.75"},
+   {color:"#cc4b63",op:.5,w:1.8,dash:"5 4",pts:DATA.map(p=>[p.d,p.bs])},
+   {color:"#13988a",pts:DATA.map(p=>[p.d,p.co])},
+   {color:"#13988a",op:.5,w:1.8,dash:"5 4",pts:DATA.map(p=>[p.d,p.cs])},
+  ]});
+
+// quality chips
+document.getElementById("qrow").innerHTML=DATA.map(p=>`<span class="chip">${kfmt(p.d)} ✓ 6/6</span>`).join("");
+
+// table
+document.getElementById("tbody").innerHTML=DATA.map(p=>{
+  const cross=p.d>5000&&p.d<16000?' class="cross"':'';
+  const note=p.d>5000&&p.d<16000?' <span class="cross-note">crossover</span>':'';
+  return `<tr${cross}><td>${p.d.toLocaleString()}${note}</td><td class="red">${p.b.toLocaleString()}</td>`+
+    `<td class="teal">${p.c.toLocaleString()}</td><td>${p.r}×</td>`+
+    `<td class="red">$${p.bo.toFixed(4)}</td><td class="teal">$${p.co.toFixed(4)}</td>`+
+    `<td style="color:var(--good)">100% / 100%</td></tr>`;
+}).join("");
+</script>

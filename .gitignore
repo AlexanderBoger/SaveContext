@@ -1,0 +1,19 @@
+__pycache__/
+*.py[cod]
+*.egg-info/
+.pytest_cache/
+build/
+dist/
+*.db
+.contextsaver/
+.contextvault/
+.venv/
+venv/
+
+# benchmark suite generated docs (regenerable via generate_docs.py)
+examples/benchmark_suite/contract_*.txt
+examples/benchmark_suite/ground_truth.json
+examples/benchmark_suite/*.db
+
+# IDE
+.idea/

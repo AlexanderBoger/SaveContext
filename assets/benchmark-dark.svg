@@ -1,0 +1,37 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 384" font-family="-apple-system,Segoe UI,Helvetica,Arial,sans-serif">
+<rect width="760" height="384" fill="none"/>
+<text x="64" y="26" font-size="16" font-weight="700" fill="#e9ece7">Context tokens to answer 6 questions</text>
+<text x="64" y="45" font-size="12.5" fill="#9aa09a">Lower is cheaper. Same questions, same 6/6 accuracy.</text>
+<rect x="64" y="56" width="12" height="12" rx="3" fill="#6a706a"/>
+<text x="82" y="66" font-size="12.5" fill="#9aa09a">Paste whole document</text>
+<rect x="249" y="56" width="12" height="12" rx="3" fill="#1fae86"/>
+<text x="267" y="66" font-size="12.5" fill="#9aa09a">SaveContext</text>
+<line x1="64" x2="740" y1="330.0" y2="330.0" stroke="#2a2e2a" stroke-width="1"/>
+<text x="56" y="334.0" font-size="11" fill="#9aa09a" text-anchor="end">0k</text>
+<line x1="64" x2="740" y1="269.0" y2="269.0" stroke="#2a2e2a" stroke-width="1"/>
+<text x="56" y="273.0" font-size="11" fill="#9aa09a" text-anchor="end">40k</text>
+<line x1="64" x2="740" y1="208.0" y2="208.0" stroke="#2a2e2a" stroke-width="1"/>
+<text x="56" y="212.0" font-size="11" fill="#9aa09a" text-anchor="end">80k</text>
+<line x1="64" x2="740" y1="147.0" y2="147.0" stroke="#2a2e2a" stroke-width="1"/>
+<text x="56" y="151.0" font-size="11" fill="#9aa09a" text-anchor="end">120k</text>
+<line x1="64" x2="740" y1="86.0" y2="86.0" stroke="#2a2e2a" stroke-width="1"/>
+<text x="56" y="90.0" font-size="11" fill="#9aa09a" text-anchor="end">160k</text>
+<path d="M117.66666666666669 330.0 L117.66666666666669 310.919125 Q117.66666666666669 306.919125 121.66666666666669 306.919125 L165.66666666666669 306.919125 Q169.66666666666669 306.919125 169.66666666666669 310.919125 L169.66666666666669 330.0 Z" fill="#6a706a"/>
+<path d="M183.66666666666669 330.0 L183.66666666666669 322.88275 Q183.66666666666669 318.88275 187.66666666666669 318.88275 L231.66666666666669 318.88275 Q235.66666666666669 318.88275 235.66666666666669 322.88275 L235.66666666666669 330.0 Z" fill="#1fae86"/>
+<text x="143.66666666666669" y="299.9" font-size="11.5" font-weight="600" fill="#e9ece7" text-anchor="middle">15,135</text>
+<text x="209.66666666666669" y="311.9" font-size="11.5" font-weight="700" fill="#1fae86" text-anchor="middle">7,290</text>
+<text x="176.66666666666669" y="350" font-size="12" fill="#9aa09a" text-anchor="middle">15k-token doc</text>
+<text x="176.66666666666669" y="368" font-size="12" font-weight="700" fill="#1fae86" text-anchor="middle">2.1× less</text>
+<path d="M343.00000000000006 330.0 L343.00000000000006 265.187425 Q343.00000000000006 261.187425 347.00000000000006 261.187425 L391.00000000000006 261.187425 Q395.00000000000006 261.187425 395.00000000000006 265.187425 L395.00000000000006 330.0 Z" fill="#6a706a"/>
+<path d="M409.00000000000006 330.0 L409.00000000000006 322.8858 Q409.00000000000006 318.8858 413.00000000000006 318.8858 L457.00000000000006 318.8858 Q461.00000000000006 318.8858 461.00000000000006 322.8858 L461.00000000000006 330.0 Z" fill="#1fae86"/>
+<text x="369.00000000000006" y="254.2" font-size="11.5" font-weight="600" fill="#e9ece7" text-anchor="middle">45,123</text>
+<text x="435.00000000000006" y="311.9" font-size="11.5" font-weight="700" fill="#1fae86" text-anchor="middle">7,288</text>
+<text x="402.00000000000006" y="350" font-size="12" fill="#9aa09a" text-anchor="middle">45k-token doc</text>
+<text x="402.00000000000006" y="368" font-size="12" font-weight="700" fill="#1fae86" text-anchor="middle">6.2× less</text>
+<path d="M568.3333333333334 330.0 L568.3333333333334 105.04412499999998 Q568.3333333333334 101.04412499999998 572.3333333333334 101.04412499999998 L616.3333333333334 101.04412499999998 Q620.3333333333334 101.04412499999998 620.3333333333334 105.04412499999998 L620.3333333333334 330.0 Z" fill="#6a706a"/>
+<path d="M634.3333333333334 330.0 L634.3333333333334 322.841575 Q634.3333333333334 318.841575 638.3333333333334 318.841575 L682.3333333333334 318.841575 Q686.3333333333334 318.841575 686.3333333333334 322.841575 L686.3333333333334 330.0 Z" fill="#1fae86"/>
+<text x="594.3333333333334" y="94.0" font-size="11.5" font-weight="600" fill="#e9ece7" text-anchor="middle">150,135</text>
+<text x="660.3333333333334" y="311.8" font-size="11.5" font-weight="700" fill="#1fae86" text-anchor="middle">7,317</text>
+<text x="627.3333333333334" y="350" font-size="12" fill="#9aa09a" text-anchor="middle">150k-token doc</text>
+<text x="627.3333333333334" y="368" font-size="12" font-weight="700" fill="#1fae86" text-anchor="middle">20.5× less</text>
+</svg>

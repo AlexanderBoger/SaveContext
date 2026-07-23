@@ -1,0 +1,47 @@
+{
+  "label": "nist-800-53r5",
+  "pdf": "/Users/alex.boger/Downloads/NIST.SP.800-53r5.pdf",
+  "questions": [
+    {
+      "id": "purpose_scope",
+      "q": "What is the purpose and scope of NIST SP 800-53 Rev 5, and which organisations must use it?",
+      "heading": "introduction"
+    },
+    {
+      "id": "ac2_ac3",
+      "q": "What do controls AC-2 (Account Management) and AC-3 (Access Enforcement) specifically require?",
+      "heading": "access control"
+    },
+    {
+      "id": "sc8",
+      "q": "What does control SC-8 require, and what does the SC-8(1) enhancement add?",
+      "heading": "system and communications protection"
+    }
+  ],
+  "fact_questions": [
+    {
+      "id": "ia5_exact",
+      "q": "What is the exact control statement for IA-5 (Authenticator Management)? Quote it verbatim.",
+      "must_contain": "initial authenticator distribution",
+      "heading": "identification and authentication"
+    },
+    {
+      "id": "ac3_exact",
+      "q": "What is the exact one-sentence control statement for AC-3 (Access Enforcement)?",
+      "must_contain": "approved authorizations for logical access",
+      "heading": "access control"
+    },
+    {
+      "id": "sc8_1_crypto",
+      "q": "What cryptographic protocols does NIST explicitly name as examples for SC-8(1)?",
+      "must_contain": "TLS",
+      "heading": "system and communications protection"
+    },
+    {
+      "id": "control_families_count",
+      "q": "How many control families are defined in NIST SP 800-53 Rev 5?",
+      "must_contain": "20",
+      "heading": "introduction"
+    }
+  ]
+}

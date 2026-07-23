@@ -1,0 +1,15 @@
+{
+  "_comment": "Merge this into your project's .claude/settings.json. Fires the hint hook on every prompt; adjust the python path and SAVECONTEXT_HINT_TOKENS as needed.",
+  "hooks": {
+    "UserPromptSubmit": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "python examples/integration/savecontext_hint.py"
+          }
+        ]
+      }
+    ]
+  }
+}

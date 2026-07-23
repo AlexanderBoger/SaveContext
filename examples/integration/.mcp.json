@@ -1,0 +1,11 @@
+{
+  "mcpServers": {
+    "savecontext": {
+      "command": "python",
+      "args": ["-m", "savecontext"],
+      "env": {
+        "SAVECONTEXT_DB": "/absolute/path/to/savecontext.db"
+      }
+    }
+  }
+}
